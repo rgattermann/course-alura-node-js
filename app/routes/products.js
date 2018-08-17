@@ -1,5 +1,16 @@
 module.exports = function (app) {
     app.get('/products', function (req, res) {
-        res.render('products/list');
+        var mysql = require('mysql');
+        var connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'casadocodigo'
+        });
+
+        connection.query('SELECT * FROM livros', function(err, result) {
+            res.send(result);
+        });
+        connection.end()
     });
 };
